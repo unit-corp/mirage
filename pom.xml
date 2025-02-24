@@ -4,12 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>vn.com.unit.miragesql</groupId>
 	<artifactId>miragesql-parent</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<packaging>pom</packaging>
 	<name>miragesql</name>
 	<description>Mirage-SQL is an easy and powerful SQL centric database access
 		library for Java (or JVM based languages) which provides dynamic SQL
-		templates in plain SQL files.</description>
+		templates in plain SQL files. This project is a fork of
+		[Mirage-SQL](https://github.com/mirage-sql/mirage) by UNIT Technology
+		Corporation since 2025.</description>
 	<url>https://github.com/unit-corp/mirage</url>
 	<organization>
 		<name>UNIT Technology Corporation</name>
@@ -32,14 +34,12 @@
 
 		<spring.boot.version>3.2.0</spring.boot.version>
 		<spring-boot-maven-plugin.version>${spring.boot.version}</spring-boot-maven-plugin.version>
-		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-		<dependency-check-maven.version>7.4.1</dependency-check-maven.version>
 		<maven-deploy-plugin.version>3.1.3</maven-deploy-plugin.version>
 		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
 		<maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
 		<central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
-
+		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
 
 		<!-- Dependencies versions -->
 		<mirage.version>${project.version}</mirage.version>
@@ -90,7 +90,7 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-	<inceptionYear>2019</inceptionYear>
+	<inceptionYear>2025</inceptionYear>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -102,6 +102,16 @@
 			<id>unit-hunght</id>
 			<name>Hua Thanh Hung</name>
 			<email>hunght@unit.com.vn</email>
+		</developer>
+		<developer>
+			<id>unit-vinhlt</id>
+			<name>Luong The Vinh</name>
+			<email>vinhlt@unit.com.vn</email>
+		</developer>
+		<developer>
+			<id>unit-corp-devops</id>
+			<name>UNIT Technology Corporation</name>
+			<email>devops@unit.com.vn</email>
 		</developer>
 	</developers>
 
@@ -137,31 +147,6 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<groupId>org.owasp</groupId>
-					<artifactId>dependency-check-maven</artifactId>
-					<version>${dependency-check-maven.version}</version>
-					<executions>
-						<execution>
-							<phase>none</phase>
-							<goals>
-								<goal>aggregate</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<suppressionFiles>
-							<suppressionFile>
-								${main.basedir}/security/project-suppression.xml</suppressionFile>
-						</suppressionFiles>
-						<formats>
-							<format>html</format>
-							<format>json</format>
-							<format>xml</format>
-						</formats>
-						<outputDirectory>${main.basedir}/target</outputDirectory>
-					</configuration>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${maven-source-plugin.version}</version>
@@ -186,6 +171,11 @@
 							</goals>
 						</execution>
 					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -225,15 +215,29 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 			</plugin>
-			<!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-			</plugin>-->
-			<plugin>
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
-	
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>central-publishing</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
