@@ -43,6 +43,9 @@
 
 		<!-- Dependencies versions -->
 		<mirage.version>${project.version}</mirage.version>
+		<ognl.version>3.3.5</ognl.version>
+		<guice.version>6.0.0</guice.version>
+		<guava.version>33.4.0-jre</guava.version>
 	</properties>
 
 	<modules>
@@ -61,6 +64,22 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
+				<groupId>ognl</groupId>
+				<artifactId>ognl</artifactId>
+				<version>${ognl.version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>${guice.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>vn.com.unit.miragesql</groupId>
 				<artifactId>miragesql</artifactId>
 				<version>${mirage.version}</version>
@@ -69,11 +88,14 @@
 				<groupId>vn.com.unit.miragesql</groupId>
 				<artifactId>miragesql-integration</artifactId>
 				<version>${mirage.version}</version>
+				<scope>compile</scope>
+				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>vn.com.unit.miragesql</groupId>
 				<artifactId>miragesql-test</artifactId>
 				<version>${mirage.version}</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
