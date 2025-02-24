@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>vn.com.unit.miragesql</groupId>
 	<artifactId>miragesql-parent</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<packaging>pom</packaging>
 	<name>miragesql</name>
 	<description>Mirage-SQL is an easy and powerful SQL centric database access
