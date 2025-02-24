@@ -3,8 +3,6 @@ package vn.com.unit.miragesql.miragesql.bean;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import vn.com.unit.miragesql.miragesql.bean.DefaultPropertyExtractor;
-import vn.com.unit.miragesql.miragesql.bean.PropertyWrapper;
 
 
 public class DefaultPropertyExtractorTest extends TestCase {

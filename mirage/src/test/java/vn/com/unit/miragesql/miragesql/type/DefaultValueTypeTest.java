@@ -1,7 +1,6 @@
 package vn.com.unit.miragesql.miragesql.type;
 
 import junit.framework.TestCase;
-import vn.com.unit.miragesql.miragesql.type.DefaultValueType;
 
 @Deprecated
 public class DefaultValueTypeTest extends TestCase {

@@ -1,7 +1,6 @@
 package vn.com.unit.miragesql.miragesql.dialect;
 
 import junit.framework.TestCase;
-import vn.com.unit.miragesql.miragesql.dialect.HyperSQLDialect;
 
 public class HyperSQLDialectTest extends TestCase {
 

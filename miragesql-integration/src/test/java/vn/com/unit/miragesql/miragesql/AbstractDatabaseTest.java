@@ -42,7 +42,6 @@ public abstract class AbstractDatabaseTest extends TestCase {
 	private void executeMultipleStatement(String sqlPath) throws Exception {
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		byte[] bytes = IOUtil.readStream(cl.getResourceAsStream(sqlPath));
-		
 		String sql = new String(bytes, "UTF-8");
 		for(String statement: sql.split(";")){
 			if(statement.trim().length() > 0){

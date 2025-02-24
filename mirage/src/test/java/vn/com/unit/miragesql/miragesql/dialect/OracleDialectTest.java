@@ -2,7 +2,6 @@ package vn.com.unit.miragesql.miragesql.dialect;
 
 import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey.GenerationType;
-import vn.com.unit.miragesql.miragesql.dialect.OracleDialect;
 import vn.com.unit.miragesql.miragesql.type.OracleResultSetValueType;
 
 public class OracleDialectTest extends TestCase {

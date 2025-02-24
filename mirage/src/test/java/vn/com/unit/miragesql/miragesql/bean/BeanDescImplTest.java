@@ -4,10 +4,6 @@ import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.annotation.Enumerated;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
 import vn.com.unit.miragesql.miragesql.annotation.Transient;
-import vn.com.unit.miragesql.miragesql.bean.BeanDesc;
-import vn.com.unit.miragesql.miragesql.bean.BeanDescImpl;
-import vn.com.unit.miragesql.miragesql.bean.DefaultPropertyExtractor;
-import vn.com.unit.miragesql.miragesql.bean.PropertyExtractor;
 
 public class BeanDescImplTest extends TestCase {
 

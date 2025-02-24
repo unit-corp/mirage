@@ -2,11 +2,6 @@ package vn.com.unit.miragesql.miragesql.parser;
 
 import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.bean.BeanDescFactory;
-import vn.com.unit.miragesql.miragesql.parser.Node;
-import vn.com.unit.miragesql.miragesql.parser.SqlContext;
-import vn.com.unit.miragesql.miragesql.parser.SqlContextImpl;
-import vn.com.unit.miragesql.miragesql.parser.SqlParser;
-import vn.com.unit.miragesql.miragesql.parser.SqlParserImpl;
 
 public class SqlParserImplTest extends TestCase {
 
