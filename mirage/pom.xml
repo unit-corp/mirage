@@ -107,15 +107,6 @@
 			<artifactId>hsqldb</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.groovy/groovy-all -->
-		<dependency>
-			<groupId>org.apache.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>4.0.17</version>
-			<type>pom</type>
-		</dependency>
-
-
 		<!-- https://mvnrepository.com/artifact/org.spockframework/spock-core -->
 		<dependency>
 			<groupId>org.spockframework</groupId>
