@@ -1,2 +1,0 @@
-rootProject.name = 'miragesql'
-include('miragesql-tools', 'miragesql-test', 'miragesql-integration')
