@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,35 +80,59 @@ public class SqlExecutor {
         this.entityOperator = entityOperator;
     }
 
-    private static void printSql(String sql){
+    private static void printSql(String sql) {
         sql = sql.replace("\r\n", "\n");
         sql = sql.replace("\r", "\n");
 
         StringBuilder sb = new StringBuilder();
-        for(String line: sql.split("\n")){
-            if(line.trim().length() != 0){
-                sb.append(line).append(System.getProperty("line.separator"));
+        for (String line : sql.split("\n")) {
+            if (line.trim().length() != 0) {
+                sb.append(line.trim().replaceAll("\\s+", " ")).append(" ");
             }
         }
-
-        logger.debug(sb.toString().trim());
-    }
-
-    private static void printParameters(PropertyDesc[] propDescs, Object entity){
-        if(propDescs == null){
-            return;
-        }
-        for(int i=0; i<propDescs.length; i++){
-            logger.debug(String.format("params[%d]=%s", i, propDescs[i].getValue(entity)));
+        String content = sb.toString().trim();
+        if (content.length() > 0) {
+            logger.debug(content);
         }
     }
 
-    private static void printParameters(Object[] params){
-        if(params == null){
+    private static void printParameters(PropertyDesc[] propDescs, Object entity) {
+        if (propDescs == null) {
             return;
         }
-        for(int i=0; i<params.length; i++){
-            logger.debug(String.format("params[%d]=%s", i, params[i]));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < propDescs.length; i++) {
+            sb.append(String.format("params[%d]=%s", i, propDescs[i].getValue(entity)));
+            if (i < propDescs.length - 1) {
+                sb.append(", ");
+            }
+        }
+        String content = sb.toString().trim();
+        if (content.length() > 0) {
+            logger.debug(content);
+        }
+    }
+
+    private static void printParameters(Object[] params) {
+        if (params == null) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < params.length; i++) {
+            if (params[i] instanceof PropertyDesc) {
+                PropertyDesc prop = (PropertyDesc) params[i];
+                sb.append(String.format("params[%d]=[%s:%s]", i, prop.getPropertyName(),
+                        prop.getPropertyType().getSimpleName()));
+            } else {
+                sb.append(String.format("params[%d]=%s", i, params[i]));
+            }
+            if (i < params.length - 1) {
+                sb.append(", ");
+            }
+        }
+        String content = sb.toString().trim();
+        if (content.length() > 0) {
+            logger.debug(content);
         }
     }
 
