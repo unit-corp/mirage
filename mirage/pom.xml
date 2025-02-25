@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>vn.com.unit.miragesql</groupId>
+		<artifactId>miragesql-parent</artifactId>
+		<version>3.0.1</version>
+	</parent>
+	<artifactId>miragesql</artifactId>
+	<name>Mirage-SQL</name>
+	<description>Mirage-SQL is an easy and powerful SQL centric database access
+		library for Java (or JVM based languages) which provides dynamic SQL
+		templates in plain SQL files. This project is a fork of
+		[Mirage-SQL](https://github.com/mirage-sql/mirage) by UNIT Technology
+		Corporation since 2025.</description>
+	<url>https://github.com/unit-corp/mirage</url>
+	<organization>
+		<name>UNIT Technology Corporation</name>
+		<url>https://github.com/unit-corp</url>
+	</organization>
+	<scm>
+		<url>https://github.com/unit-corp/mirage</url>
+		<connection>scm:git:https://github.com/unit-corp/mirage.git</connection>
+		<developerConnection>scm:git:git@https://github.com/unit-corp/mirage.git</developerConnection>
+	</scm>
+	<inceptionYear>2025</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/license/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>unit-hunght</id>
+			<name>Hua Thanh Hung</name>
+			<email>hunght@unit.com.vn</email>
+		</developer>
+		<developer>
+			<id>unit-vinhlt</id>
+			<name>Luong The Vinh</name>
+			<email>vinhlt@unit.com.vn</email>
+		</developer>
+		<developer>
+			<id>unit-corp-devops</id>
+			<name>UNIT Technology Corporation</name>
+			<email>devops@unit.com.vn</email>
+		</developer>
+	</developers>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
