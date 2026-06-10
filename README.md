@@ -68,4 +68,3 @@ This feature used in the Mirage's SQL template it's called [2Way SQL](https://gi
  - If you find any **bugs or issues**, please report them in the [GitHub Issue Tracker](https://github.com/unit-corp/mirage/issues).
  - **[Release Notes](https://github.com/unit-corp/mirage/wiki/Releases)** of all previous Mirage-SQL versions.
  - Mirage-SQL also has support for other **JVM based languages**
- - 
