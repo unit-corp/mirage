@@ -1,11 +1,13 @@
-name: CI Trigger Release Snapshot
+name: CI Trigger Jenkins Job
 
 on:
   push:
     branches:
-      - develop
+      - "**"
   workflow_dispatch:
 
 jobs:
-  trigger-maven-release-snapshot:
-    uses: unit-corp/ci-templates/.github/workflows/trigger-maven-release-snapshot.yml@main
+  trigger-jenkins:
+    uses: unit-corp/ci-templates/.github/workflows/trigger-jenkins.yml@main
+    secrets:
+      JENKINS_MB_TOKEN: upbp-02-rms-be-token1
