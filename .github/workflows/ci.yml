@@ -9,3 +9,5 @@ on:
 jobs:
   trigger-maven-release-snapshot:
     uses: unit-corp/ci-templates-public/.github/workflows/trigger-maven-release-snapshot.yml@main
+    with:
+      snapshot_url: ${{ vars.MAVEN_SNAPSHOT_URL }}
