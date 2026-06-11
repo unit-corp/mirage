@@ -10,8 +10,6 @@ jobs:
     runs-on: [self-hosted, linux]
 
     steps:
-      - name: Checkout Public Source Code
-        uses: actions/checkout@v4
 
       - name: Trigger Snapshot
         if: github.ref == 'refs/heads/develop'
