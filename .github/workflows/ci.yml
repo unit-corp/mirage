@@ -1,13 +1,18 @@
-name: CI Trigger Jenkins Job
+name: Trigger Jenkins Pipeline
 
 on:
   push:
     branches:
-      - "**"
-  workflow_dispatch:
+      - develop
 
 jobs:
-  trigger-jenkins:
-    uses: unit-corp/ci-templates/.github/workflows/trigger-jenkins.yml@main
-    secrets:
-      JENKINS_MB_TOKEN: upbp-02-rms-be-token1
+  execute-ci:
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout Public Source Code
+        uses: actions/checkout@v4
+
+      - name: Trigger Snapshot
+        if: github.ref == 'refs/heads/develop'
+        uses: unit-corp/ci-templates/trigger-snapshot@main
