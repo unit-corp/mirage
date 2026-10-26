@@ -15,9 +15,8 @@
  */
 package vn.com.unit.miragesql.miragesql.parser;
 
-import java.util.Map;
-
 import ognl.ObjectPropertyAccessor;
+import ognl.OgnlContext;
 import ognl.OgnlException;
 
 /**
@@ -30,8 +29,7 @@ public class SqlContextPropertyAccessor extends ObjectPropertyAccessor {
     private static final String HAS_PREFIX = "has_";
 
     @Override
-    @SuppressWarnings("rawtypes")
-    public Object getProperty(Map cx, Object target, Object name)
+    public Object getPossibleProperty(OgnlContext context, Object target, String name)
             throws OgnlException {
 
         SqlContext ctx = (SqlContext) target;
