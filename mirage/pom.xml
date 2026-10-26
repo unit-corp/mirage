@@ -94,4 +94,41 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<!-- Spock specs (src/test/groovy). Spock brings the JUnit Platform, which hides JUnit 4 tests from the Eclipse runner, so it is opt-in: mvn -Pspock test -->
+		<profile>
+			<id>spock</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.groovy</groupId>
+					<artifactId>groovy</artifactId>
+					<version>4.0.17</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.spockframework</groupId>
+					<artifactId>spock-core</artifactId>
+					<version>2.4-M1-groovy-4.0</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmavenplus</groupId>
+						<artifactId>gmavenplus-plugin</artifactId>
+						<version>3.0.2</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>addTestSources</goal>
+									<goal>compileTests</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
