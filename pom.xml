@@ -23,7 +23,7 @@
 		<maven-deploy-plugin.version>3.9.0</maven-deploy-plugin.version>
 
 		<!-- Dependencies versions -->
-		<spring-data-mirage.version>3.0.1.RELEASE</spring-data-mirage.version>
+		<spring-data-mirage.version>4.0.1</spring-data-mirage.version>
 		<mirage.version>${project.version}</mirage.version>
 	</properties>
 
