@@ -1,5 +1,8 @@
 # Implementation Plan: Update OGNL Library to Latest Release
 
+> **Update (maintenance/legacy branch)**: this document records the OGNL update and is kept as history. The minimum Java version is now **17** (not 21) and the artifacts are now named with a `-legacy` suffix under the group `vn.com.unit.miragesql`. See `CHANGELOG.md`.
+
+
 **Branch**: `001-update-ognl` | **Date**: 2026-10-26 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification from `/specs/001-update-ognl/spec.md`
@@ -10,7 +13,7 @@ Upgrade the `ognl:ognl` dependency of the `mirage` module from 3.2.4 to the late
 
 ## Technical Context
 
-**Language/Version**: Java (`java.version` = 21 in root `pom.xml`, as in release 3.0.1)
+**Language/Version**: Java (`java.version` = 17 in root `pom.xml` on `maintenance/legacy`; it was 21 in release 3.0.1)
 
 **Primary Dependencies**: `ognl:ognl` 3.2.4 → 3.4.17 (declared only in `mirage/pom.xml`); Spring Boot parent 3.4.0; Javassist 3.29.2-GA
 
@@ -52,7 +55,7 @@ specs/001-update-ognl/
 ### Source Code (repository root)
 
 ```text
-pom.xml                                  # parent (java.version 21), + junit-vintage-engine test dependency
+pom.xml                                  # parent (java.version 17; 21 originally), + junit-vintage-engine test dependency
 mirage/
 ├── pom.xml                              # ognl version bump (line ~75)
 └── src/main/java/com/miragesql/miragesql/

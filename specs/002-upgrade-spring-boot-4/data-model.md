@@ -1,5 +1,8 @@
 # Data Model: Upgrade to Latest Spring Boot 4
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 This feature has no persistent data. The entities from the spec map to build and release artifacts.
 
 ## Spring Boot platform version
@@ -44,5 +47,5 @@ Rule: same group and artifact names in both lines; no version number belongs to 
 
 | Field | Value |
 |-------|-------|
-| Content | old and new Spring Boot versions, minimum Java version (21 stays), breaking changes or consumer actions |
+| Content | old and new Spring Boot versions, minimum Java version (17 on `maintenance/legacy`; originally 21), breaking changes or consumer actions |
 | Location | to be decided in tasks (see plan: no changelog file exists yet) |

@@ -1,14 +1,37 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project child.project.url.inherit.append.path="false" xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.miragesql</groupId>
-	<artifactId>miragesql-parent</artifactId>
+	<groupId>vn.com.unit.miragesql</groupId>
+	<artifactId>miragesql-parent-legacy</artifactId>
 	<version>4.0.1</version>
 	<packaging>pom</packaging>
+	<name>Mirage-SQL Parent (legacy)</name>
+	<description>Mirage-SQL is an easy and powerful SQL centric database access
+		library for Java (or JVM based languages) which provides dynamic SQL
+		templates in plain SQL files. This is the maintenance-only legacy line,
+		maintained by UNIT Technology Corporation for applications that still use
+		the "com.miragesql" package; new features go to the current line
+		(vn.com.unit.miragesql, artifacts without the "-legacy" suffix). It
+		requires Java 17+ and is built against Spring Boot 4. See the README for
+		migration steps.</description>
+	<url>https://github.com/unit-corp/mirage</url>
+	<organization>
+		<name>UNIT Technology Corporation</name>
+		<url>https://github.com/unit-corp</url>
+	</organization>
+	<scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
+		<url>https://github.com/unit-corp/mirage</url>
+		<connection>scm:git:https://github.com/unit-corp/mirage.git</connection>
+		<developerConnection>scm:git:git@github.com:unit-corp/mirage.git</developerConnection>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/unit-corp/mirage/issues</url>
+	</issueManagement>
 
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -18,9 +41,12 @@
 
 		<spring.boot.version>4.1.2</spring.boot.version>
 		<spring-boot-maven-plugin.version>${spring.boot.version}</spring-boot-maven-plugin.version>
-		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-		<dependency-check-maven.version>7.4.1</dependency-check-maven.version>
-		<maven-deploy-plugin.version>3.9.0</maven-deploy-plugin.version>
+		<maven-deploy-plugin.version>3.2.0</maven-deploy-plugin.version>
+		<maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+		<central-publishing-maven-plugin.version>0.12.0</central-publishing-maven-plugin.version>
+		<git-commit-id-maven-plugin.version>9.2.0</git-commit-id-maven-plugin.version>
 
 		<!-- Dependencies versions -->
 		<spring-data-mirage.version>4.0.1</spring-data-mirage.version>
@@ -43,18 +69,18 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.miragesql</groupId>
-				<artifactId>miragesql</artifactId>
+				<groupId>vn.com.unit.miragesql</groupId>
+				<artifactId>miragesql-legacy</artifactId>
 				<version>${mirage.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.miragesql</groupId>
-				<artifactId>miragesql-integration</artifactId>
+				<groupId>vn.com.unit.miragesql</groupId>
+				<artifactId>miragesql-integration-legacy</artifactId>
 				<version>${mirage.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.miragesql</groupId>
-				<artifactId>miragesql-test</artifactId>
+				<groupId>vn.com.unit.miragesql</groupId>
+				<artifactId>miragesql-test-legacy</artifactId>
 				<version>${mirage.version}</version>
 			</dependency>
 		</dependencies>
@@ -79,8 +105,60 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<inceptionYear>2025</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>unit-hunght</id>
+			<name>Hua Thanh Hung</name>
+			<email>hunght@unit.com.vn</email>
+		</developer>
+		<developer>
+			<id>unit-vinhlt</id>
+			<name>Luong The Vinh</name>
+			<email>vinhlt@unit.com.vn</email>
+		</developer>
+		<developer>
+			<id>unit-corp-devops</id>
+			<name>UNIT Technology Corporation</name>
+			<email>devops@unit.com.vn</email>
+		</developer>
+	</developers>
+	<contributors>
+		<!-- Original Mirage-SQL authors (upstream project) -->
+		<contributor>
+			<name>Naoki Takezoe</name>
+			<url>https://github.com/takezoe</url>
+		</contributor>
+		<contributor>
+			<name>Daisuke Miyamoto</name>
+		</contributor>
+		<contributor>
+			<name>Adrian A.</name>
+			<url>https://github.com/aadrian</url>
+		</contributor>
+	</contributors>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<!-- Apache License 2.0: ship LICENSE and NOTICE (kept in the repository root, one level above each module) inside every jar -->
+			<resource>
+				<directory>${project.basedir}/..</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+					<include>LICENSE</include>
+					<include>NOTICE</include>
+				</includes>
+			</resource>
+		</resources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -89,9 +167,9 @@
 					<version>${spring-boot-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>pl.project13.maven</groupId>
-					<artifactId>git-commit-id-plugin</artifactId>
-					<version>${git-commit-id-plugin.version}</version>
+					<groupId>io.github.git-commit-id</groupId>
+					<artifactId>git-commit-id-maven-plugin</artifactId>
+					<version>${git-commit-id-maven-plugin.version}</version>
 					<executions>
 						<execution>
 							<goals>
@@ -112,62 +190,97 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<groupId>org.owasp</groupId>
-					<artifactId>dependency-check-maven</artifactId>
-					<version>${dependency-check-maven.version}</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
 					<executions>
 						<execution>
-							<phase>none</phase>
+							<id>attach-sources</id>
 							<goals>
-								<goal>aggregate</goal>
+								<goal>jar-no-fork</goal>
 							</goals>
 						</execution>
 					</executions>
-					<configuration>
-						<suppressionFiles>
-							<suppressionFile>
-								${main.basedir}/security/project-suppression.xml</suppressionFile>
-						</suppressionFiles>
-						<formats>
-							<format>html</format>
-							<format>json</format>
-							<format>xml</format>
-						</formats>
-						<outputDirectory>${main.basedir}/target</outputDirectory>
-					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>${maven-deploy-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>${central-publishing-maven-plugin.version}</version>
+					<extensions>true</extensions>
+					<configuration>
+						<publishingServerId>central</publishingServerId>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
 			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
-
-	<distributionManagement>
-		<repository>
-			<id>maven-private</id>
-			<url>https://repo.unit.vn/repository/unit-maven-releases/</url>
-		</repository>
-	</distributionManagement>
-
-
-	<repositories>
-		<repository>
-			<id>local-repository</id>
-			<name>Local Repository</name>
-			<url>file://${main.basedir}/repository</url>
-		</repository>
-	</repositories>
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>central-publishing</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

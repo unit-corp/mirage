@@ -1,5 +1,8 @@
 # Feature Specification: Upgrade to Latest Spring Boot 4
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 **Feature Branch**: `002-upgrade-spring-boot-4`
 
 **Created**: 2026-10-26
@@ -65,7 +68,7 @@ A consumer can tell which release line to use: `4.0.x` pairs with Spring Boot 4,
 - Third-party libraries managed by the Spring Boot dependency management (for example the JUnit, logging, database connection-pool and database-driver libraries) change versions: tests that relied on old behavior are identified and the differences are recorded rather than silently altered.
 - Libraries pinned explicitly by the project (for example OGNL, already updated in a prior feature) are incompatible with the new platform: the incompatibility is identified and resolved without reverting previously delivered upgrades.
 - Spring APIs that were deprecated in 3.x and removed in the new major version are still used by the integration code: they are replaced with their supported equivalents while preserving behavior.
-- The new Spring Boot version requires a different minimum Java version than the project's current baseline (Java 21): the baseline is kept if compatible, otherwise the required change is stated explicitly.
+- The new Spring Boot version requires a different minimum Java version than the project's current baseline (Java 17 on `maintenance/legacy`, originally Java 21): the baseline is kept if compatible, otherwise the required change is stated explicitly.
 - A consumer on Spring Boot 3 accidentally upgrades to `4.0.1`: the change notes and the version-line pairing make the mismatch easy to diagnose, and the `3.0.x` line stays available for them.
 - The separately versioned companion Spring Data module (currently 3.0.1) may not be compatible with the new platform: this must be surfaced and its handling decided (see Assumptions).
 
@@ -80,7 +83,7 @@ A consumer can tell which release line to use: `4.0.x` pairs with Spring Boot 4,
 - **FR-005**: Existing Spring integration behavior of Mirage SQL (bean wiring, transaction handling, data-source usage, AOP integration) MUST be preserved.
 - **FR-006**: Any source or configuration change needed to adapt to removed, renamed or relocated Spring APIs MUST be limited to what is needed to preserve existing behavior; no unrelated refactoring.
 - **FR-007**: The project's required Java version MUST remain satisfied by Spring Boot 4; if the new platform requires a different Java baseline, this MUST be stated explicitly in the change notes.
-- **FR-008**: Previously delivered upgrades (Java 21 baseline, OGNL update, JUnit Platform with the vintage engine) MUST continue to work after this upgrade.
+- **FR-008**: Previously delivered upgrades (Java 17 baseline, originally 21, OGNL update, JUnit Platform with the vintage engine) MUST continue to work after this upgrade.
 - **FR-009**: Any behavior difference or required consumer action resulting from the upgrade MUST be recorded in the change notes, together with the old and new Spring Boot versions.
 - **FR-010**: The upgraded dependency set MUST NOT introduce a known vulnerability that is fixed in a later stable release.
 - **FR-011**: The project version of all modules MUST be `4.0.1` for the Spring Boot 4 release, with the same group and artifact names as today so consumers choose the line by version number only.
@@ -112,7 +115,7 @@ A consumer can tell which release line to use: `4.0.x` pairs with Spring Boot 4,
 
 - "Latest Spring Boot 4" means the latest stable 4.x release; milestones and release candidates are excluded. The exact version is to be confirmed against the official release sources during planning.
 - The Spring Boot version is declared once in the parent project and inherited by all modules, with Spring libraries in the integration module following that version.
-- The Java 21 baseline (release 3.0.1) is expected to remain valid for Spring Boot 4; this is to be verified during planning.
+- The Java baseline (17 on `maintenance/legacy`, originally 21 in release 3.0.1) is expected to remain valid for Spring Boot 4; this is to be verified during planning.
 - The existing automated test suite is an adequate regression safety net; new tests are added only if a gap is found during the upgrade.
 - The companion Spring Data module version (3.0.1.RELEASE) is a property of this repository's release management; whether it needs a new release for Spring Boot 4 compatibility is to be determined during planning and, if it is a separate repository, is out of scope.
 - Upgrading unrelated libraries that are not managed by Spring Boot is out of scope, except where required to remain compatible with Spring Boot 4.

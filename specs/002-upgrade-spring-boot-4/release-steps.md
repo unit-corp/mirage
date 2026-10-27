@@ -1,5 +1,8 @@
 # Release Steps (for the maintainer)
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 Do not run these automatically. They create branches, tags and published artifacts, and need the maintainer's decision. Names follow `plan.md` "Release Line Naming".
 
 State at the time of writing: work is on local branch `feature/spring-boot-4` (from `feature/upgrade-libs-3.0.2`), uncommitted; nothing pushed.
@@ -17,7 +20,7 @@ State at the time of writing: work is on local branch `feature/spring-boot-4` (f
 ## 3. Spring Boot 4 line (`4.0.x`)
 
 - Merge `feature/spring-boot-4` into `release/4.0.1`, then tag `4.0.1`.
-- Build with `mvn clean verify` and publish the three artifacts (`miragesql`, `miragesql-integration`, `miragesql-test`) at version `4.0.1` to the internal releases repository configured in the root `pom.xml` (`distributionManagement`). A published version is immutable there, so do not reuse a number.
+- Build with `mvn clean verify` and publish the three artifacts (`miragesql`, `miragesql-integration`, `miragesql-test`) at version `4.0.1` to the internal releases repository configured in the root `pom.xml` (`distributionManagement`). On `maintenance/legacy` publish the `-legacy` artifacts to Maven Central instead, with the `central-publishing` profile (`mvn -Pcentral-publishing clean deploy`). A published version is immutable there, so do not reuse a number.
 - Make `main` follow the `4.x` line afterwards.
 
 ## 4. Before publishing

@@ -1,5 +1,8 @@
 # Baseline (before OGNL bump)
 
+> **Update (maintenance/legacy branch)**: this document records the OGNL update and is kept as history. The minimum Java version is now **17** (not 21) and the artifacts are now named with a `-legacy` suffix under the group `vn.com.unit.miragesql`. See `CHANGELOG.md`.
+
+
 Environment: JDK 25, Maven 3.9.6. The first measurements below were taken on a branch based on `main` (`java.version` 17, Spring Boot 3.2.0, version 3.0.0). They were repeated on the merged 3.0.1 base (`java.version` 21, Spring Boot 3.4.0) with identical results (see "Re-verified on 3.0.1 base" below). Run from a git worktree with `-Dmaven.gitcommitid.skip=true` (the old `git-commit-id-plugin` cannot read a worktree `.git`).
 
 **Finding**: with the original POMs `mvn test` ran **0 tests** in every module. Surefire auto-selects the JUnit Platform provider (Spock is on the classpath) and there was no engine for the JUnit 4 tests. `junit-vintage-engine` (test scope) was added to the parent `pom.xml` so the baseline is meaningful.

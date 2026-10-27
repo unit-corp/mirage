@@ -1,16 +1,19 @@
 # Implementation Plan: Upgrade to Latest Spring Boot 4
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 **Branch**: `002-upgrade-spring-boot-4` | **Date**: 2026-10-26 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification from `/specs/002-upgrade-spring-boot-4/spec.md`
 
 ## Summary
 
-Move the multi-module Maven project from Spring Boot 3.4.0 to the latest stable Spring Boot 4 release, 4.1.2 (Spring Framework 7.0.10), by changing the single `spring.boot.version` property and fixing only what the build and tests report. Java 21 stays. The project version moves from 3.0.1 to **4.0.1** with the same group and artifact names, while the Spring Boot 3 line stays maintained as `3.0.x` on its own `support/3.x` branch (see Release Line Naming). Research (see [research.md](research.md)) found that the Spring API surface used is small (`SpringConnectionProvider` plus a Servlet API dependency), and that the main risks are test tooling versions (Spock and the JUnit Platform) and managed third-party jumps (HikariCP, H2), which the existing suite will reveal.
+Move the multi-module Maven project from Spring Boot 3.4.0 to the latest stable Spring Boot 4 release, 4.1.2 (Spring Framework 7.0.10), by changing the single `spring.boot.version` property and fixing only what the build and tests report. Java baseline stays (17 on `maintenance/legacy`, originally 21). The project version moves from 3.0.1 to **4.0.1** with the same group and artifact names, while the Spring Boot 3 line stays maintained as `3.0.x` on its own `support/3.x` branch (see Release Line Naming). Research (see [research.md](research.md)) found that the Spring API surface used is small (`SpringConnectionProvider` plus a Servlet API dependency), and that the main risks are test tooling versions (Spock and the JUnit Platform) and managed third-party jumps (HikariCP, H2), which the existing suite will reveal.
 
 ## Technical Context
 
-**Language/Version**: Java 21 (`java.version`); Spring Boot 4.1.2 requires 17+
+**Language/Version**: Java 17 (`java.version`, was 21 in the original work); Spring Boot 4.1.2 requires 17+
 
 **Primary Dependencies**: Spring Boot 4.1.2 (parent import), Spring Framework 7.0.10, OGNL 3.4.17, javassist 3.29.2-GA, HikariCP and commons-dbcp2 (optional), Guice 5.0.1 (optional)
 
@@ -30,7 +33,7 @@ Move the multi-module Maven project from Spring Boot 3.4.0 to the latest stable 
 
 ## Constitution Check
 
-`.specify/memory/constitution.md` is still the unfilled template, so there are no ratified principles to gate on. Applied project-level rules instead: keep the change minimal, keep the Java 21 baseline, keep the test suite as the regression oracle. No violations. Re-checked after Phase 1 design: unchanged.
+`.specify/memory/constitution.md` is still the unfilled template, so there are no ratified principles to gate on. Applied project-level rules instead: keep the change minimal, keep the Java baseline (17 on `maintenance/legacy`, originally 21), keep the test suite as the regression oracle. No violations. Re-checked after Phase 1 design: unchanged.
 
 ## Project Structure
 
@@ -67,18 +70,18 @@ miragesql-test/
 
 ## Release Line Naming
 
-Both lines keep the group `com.miragesql` and the artifacts `miragesql`, `miragesql-integration` and `miragesql-test`; the version number alone separates them. The major number matches the Spring Boot generation.
+Original lines (`3.0.x`, `4.0.1` work) keep the group `com.miragesql` and the artifacts `miragesql`, `miragesql-integration` and `miragesql-test`; the version number alone separates them. The `maintenance/legacy` branch publishes `4.0.x` as `-legacy` artifacts under `vn.com.unit.miragesql` on Maven Central. The major number matches the Spring Boot generation.
 
 | Line | Spring Boot | Version series | Branches |
 |------|-------------|----------------|----------|
 | Old | 3.4.x | `3.0.x` (3.0.1 released; next 3.0.2, 3.0.3...) | `release/3.0.1` (exists); `release/3.0.2` (from `feature/upgrade-libs-3.0.2`); long-lived `support/3.x` cut from `release/3.0.2` |
-| New | 4.1.2 | `4.0.x`, starting at `4.0.1` | `feature/spring-boot-4` (from `feature/upgrade-libs-3.0.2`, so it already has Java 21 and OGNL 3.4.17) merged into `release/4.0.1`, tagged `4.0.1`; `main` follows this line afterwards |
+| New | 4.1.2 | `4.0.x`, starting at `4.0.1` | `feature/spring-boot-4` (from `feature/upgrade-libs-3.0.2`, so it already has the Java baseline (21 originally, 17 on `maintenance/legacy`) and OGNL 3.4.17) merged into `release/4.0.1`, tagged `4.0.1`; `main` follows this line afterwards |
 
 Notes:
 
 - The branch name differs from the spec directory name `002-upgrade-spring-boot-4` by design (spec Assumptions); the git branches in the table are not created by this plan.
 - Existing local branch `chore/version-3.0.2` and the remote branches are left as they are; reconciling them with `release/3.0.2` is a maintainer decision at release time.
-- `distributionManagement` points at the internal releases repository; a published version is immutable there, so a `3.0.x` number must never be reused by the 4.x line (guaranteed by the different major).
+- The original `distributionManagement` pointed at the internal releases repository (replaced on `maintenance/legacy` by the Maven Central publishing setup); a published version is immutable there, so a `3.0.x` number must never be reused by the 4.x line (guaranteed by the different major).
 
 ## Approach
 

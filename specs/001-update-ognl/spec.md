@@ -1,5 +1,8 @@
 # Feature Specification: Update OGNL Library to Latest Release
 
+> **Update (maintenance/legacy branch)**: this document records the OGNL update and is kept as history. The minimum Java version is now **17** (not 21) and the artifacts are now named with a `-legacy` suffix under the group `vn.com.unit.miragesql`. See `CHANGELOG.md`.
+
+
 **Feature Branch**: `001-update-ognl`
 
 **Created**: 2026-10-26
@@ -60,7 +63,7 @@ A consumer reading the release notes can see which OGNL version is now used and 
 - The newest published version is a pre-release (alpha/beta/RC): it is not selected; the latest stable release is used instead.
 - The new OGNL version changes or removes a programmatic interface that Mirage SQL's expression evaluation relies on (for example, member-access control or context construction): the affected code is adapted so that behavior is preserved, including access to private/protected/package members that templates may currently use.
 - The new OGNL version is stricter about expression security (restricted methods or classes): any template in the existing tests that relied on previously permitted behavior is identified and the difference is documented rather than silently changed.
-- The new version requires a newer minimum Java runtime than the project targets: the project's Java baseline (currently Java 21) must remain satisfied.
+- The new version requires a newer minimum Java runtime than the project targets: the project's Java baseline (currently Java 17; originally 21) must remain satisfied.
 - Custom property-access handling for SQL contexts (maps/entities with special access rules) must continue to resolve properties identically.
 
 ## Requirements *(mandatory)*
@@ -95,6 +98,6 @@ A consumer reading the release notes can see which OGNL version is now used and 
 
 - "Latest" means the latest stable release; pre-release versions (alpha, beta, RC) are excluded. At the time of writing, a search shows a 3.5.0-BETA line on Maven Central; the actual newest stable version is to be confirmed against Maven Central during planning.
 - The OGNL dependency is declared only in the `mirage` module's POM and used in a small set of classes (expression utility, IF node, bind-variable nodes, SQL context and its property accessor).
-- The project's Java baseline (Java 21, as in release 3.0.1) and Spring Boot 3.4.0 stay unchanged by this feature.
+- The project's Java baseline (Java 17 on `maintenance/legacy`; 21 in release 3.0.1) and Spring Boot 3.4.0 stay unchanged by this feature.
 - The existing automated test suite is an adequate regression safety net for expression behavior; new tests are added only if a gap is found during the upgrade.
 - Upgrading other libraries is out of scope.

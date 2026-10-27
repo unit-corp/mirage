@@ -1,5 +1,8 @@
 # Research: Upgrade to Latest Spring Boot 4
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 Checked 2026-10-26 against Maven Central metadata and POMs (`repo.maven.apache.org`).
 
 ## R1: Which version is "latest Spring Boot 4"?
@@ -10,8 +13,8 @@ Checked 2026-10-26 against Maven Central metadata and POMs (`repo.maven.apache.o
 
 ## R2: Java baseline
 
-- **Decision**: Keep `java.version` = 21.
-- **Rationale**: The 4.1.2 starter parent sets `java.version` to 17, so Java 21 is satisfied. The build JDK in this environment is 21.0.1 (Maven 3.9.6); a JDK 25 is also installed but not used by Maven.
+- **Decision**: Keep `java.version` = 21. (Superseded: the legacy branch now sets `java.version` = 17, matching the Spring Boot 4.1.2 minimum.)
+- **Rationale**: The 4.1.2 starter parent sets `java.version` to 17, so Java 17 is the minimum and Java 21 was satisfied in the original work. The build JDK in this environment is 21.0.1 (Maven 3.9.6); a JDK 25 is also installed but not used by Maven.
 - **Alternatives considered**: Lowering to 17 (rejected: contradicts release 3.0.1 baseline).
 
 ## R3: What does Boot 4.1.2 manage that this project uses?

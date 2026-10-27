@@ -1,5 +1,8 @@
 # Baseline (before the Spring Boot 4 upgrade)
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 Recorded 2026-10-26 on branch `feature/upgrade-libs-3.0.2` (commit 8d85fdf), JDK 21.0.1, Maven 3.9.6, project version 3.0.1, Spring Boot 3.4.0.
 
 ## T001: `mvn clean test`

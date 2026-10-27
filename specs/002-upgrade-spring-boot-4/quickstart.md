@@ -1,8 +1,11 @@
 # Quickstart: Validate the Spring Boot 4 Upgrade
 
+> **Update (maintenance/legacy branch)**: this document records the original `4.0.1` work and is kept as history. On the `maintenance/legacy` branch the artifacts are `miragesql-parent-legacy`, `miragesql-legacy`, `miragesql-integration-legacy` and `miragesql-test-legacy` under the group `vn.com.unit.miragesql`, the Java package stays `com.miragesql`, the minimum Java version is **17** (not 21), and the line is published to Maven Central. See `CHANGELOG.md` ("Release lines" and "Unreleased") for the current state.
+
+
 ## Prerequisites
 
-- JDK 21 and Maven 3.9.x on the path (`mvn -v` shows Java 21).
+- JDK 17 or newer and Maven 3.9.x on the path (`mvn -v` shows Java 17+).
 - Network access to Maven Central (the `repository` directory in the repo is also configured as a local repository).
 
 ## 1. Capture the baseline (before changing anything)
@@ -46,9 +49,9 @@ Run the OWASP dependency-check plugin if it works with this build, otherwise rev
 ## 7. Version and line check
 
 - `mvn help:evaluate -Dexpression=project.version -q -DforceStdout` prints `4.0.1` in each module, and `mirage.version` resolves to the same value.
-- The built artifacts are named `miragesql-4.0.1`, `miragesql-integration-4.0.1` and `miragesql-test-4.0.1`, with the same group and artifact ids as in 3.0.1.
+- The built artifacts are named `miragesql-legacy-4.0.1`, `miragesql-integration-legacy-4.0.1` and `miragesql-test-legacy-4.0.1` (group `vn.com.unit.miragesql`); the original 3.0.1 artifacts had no `-legacy` suffix and used the group `com.miragesql`.
 - On the `3.0.x` line (`support/3.x`), the same dependency-tree command still shows Spring Boot 3 artifacts (SC-007).
 
 ## 8. Change notes
 
-Confirm the change notes state the old and new Spring Boot versions, that Java 21 is still the baseline, which version line pairs with which Spring Boot generation, and any consumer action (SC-005, FR-013).
+Confirm the change notes state the old and new Spring Boot versions, that Java 17 is the baseline, which version line pairs with which Spring Boot generation, and any consumer action (SC-005, FR-013).

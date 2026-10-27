@@ -1,6 +1,6 @@
 # Quickstart: Validate the OGNL Upgrade
 
-**Prerequisites**: JDK 21+ (the build targets Java 21), Maven, network access to Maven Central. Run from the repository root.
+**Prerequisites**: JDK 17+ (the build targets Java 17), Maven, network access to Maven Central. Run from the repository root.
 
 1. **Baseline** (before the bump, to know pre-existing failures):
    `mvn -q test` and record the pass/fail counts per module.

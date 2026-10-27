@@ -1,5 +1,8 @@
 # Research: Update OGNL Library
 
+> **Update (maintenance/legacy branch)**: this document records the OGNL update and is kept as history. The minimum Java version is now **17** (not 21) and the artifacts are now named with a `-legacy` suffix under the group `vn.com.unit.miragesql`. See `CHANGELOG.md`.
+
+
 ## R1: Which version is "latest"?
 
 - **Decision**: 3.4.17 (latest stable).
@@ -33,7 +36,7 @@ These come from general knowledge of the OGNL 3.3/3.4 line and have **not** been
 
 ## R4: Java baseline
 
-OGNL 3.4.x targets Java 8+, so the project's Java 21 (`java.version`, release 3.0.1 and branch `feature/upgrade-libs-3.0.2`) is satisfied. Java 17 was only the baseline of `main` (3.0.0); it also works (verified with JDK 17), but the Java level stays at 21 to match 3.0.1.
+OGNL 3.4.x targets Java 8+, so the project's Java baseline (17 on `maintenance/legacy`, 21 in release 3.0.1; `java.version`, release 3.0.1 and branch `feature/upgrade-libs-3.0.2`) is satisfied. Java 17 was only the baseline of `main` (3.0.0); it also works (verified with JDK 17), but the Java level stays at 21 to match 3.0.1.
 
 ## R6: Known vulnerabilities (checked 2026-10-26)
 
