@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.miragesql</groupId>
 		<artifactId>miragesql-parent</artifactId>
-		<version>4.0.1</version>
+		<version>4.0.2</version>
 	</parent>
 	<artifactId>miragesql-integration</artifactId>
 	<name>Mirage-SQL Integration</name>
