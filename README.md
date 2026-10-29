@@ -1,96 +1,165 @@
-# miragesql-customize
+Mirage-SQL (legacy) [![Maven Central](https://img.shields.io/maven-central/v/vn.com.unit.miragesql/miragesql-legacy)](https://central.sonatype.com/artifact/vn.com.unit.miragesql/miragesql-legacy)
+======
 
+> **Maintenance only.** This legacy line is maintained by UNIT Technology Corporation for applications that still use the `com.miragesql` package. New features go to the current line (`vn.com.unit.miragesql`, artifacts without the `-legacy` suffix). See [Migration](#migration).
 
+**`Mirage-SQL`** is an easy and powerful SQL-centric database access library for Java (or JVM based languages) which provides dynamic SQL templates in plain SQL files.
 
-## Getting started
+This project is a fork of [Mirage-SQL](https://github.com/mirage-sql/mirage) maintained by UNIT Technology Corporation since 2025.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Requires **Java 17+**; built against Spring Boot 4 / Spring Framework 7. See the [Changelog](CHANGELOG.md) for the release lines.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Project structure
+This is a multi-module Maven build. The root `miragesql-parent-legacy` is the parent POM (`pom` packaging); it holds the shared configuration and the managed versions of the modules below. You do not declare it in your application, Maven resolves it automatically when it resolves a module.
 
-## Add your files
+Module|Artifact|Description
+---   |---     |---
+**Mirage-SQL**|`miragesql-legacy`|The core library.
+**Mirage-SQL Test**|`miragesql-test-legacy`|The testing functionality.
+**Mirage-SQL Integration**|`miragesql-integration-legacy`|The integration with [Spring](https://projects.spring.io/spring-framework/), [Guice](https://github.com/google/guice) and [Seasar2](http://www.seasar.org/en/).
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+All artifacts use the group `vn.com.unit.miragesql` and the same version (`4.0.1`). The upstream **Mirage-SQL Tools** module (`miragesql-tools`) is not part of this repository.
+
+### Using
+You can get **`Mirage-SQL`** (legacy) from the Maven Central repository. Add the modules you need into your `pom.xml`, with the same version for all of them.
+
+```xml
+<dependency>
+    <groupId>vn.com.unit.miragesql</groupId>
+    <artifactId>miragesql-legacy</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<!-- optional: Spring, Guice or Seasar2 integration -->
+<dependency>
+    <groupId>vn.com.unit.miragesql</groupId>
+    <artifactId>miragesql-integration-legacy</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<!-- optional: testing functionality -->
+<dependency>
+    <groupId>vn.com.unit.miragesql</groupId>
+    <artifactId>miragesql-test-legacy</artifactId>
+    <version>4.0.1</version>
+    <scope>test</scope>
+</dependency>
+```
+To declare the version once, import the parent POM in the `dependencyManagement` of your `pom.xml`, then omit the version on each module:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>vn.com.unit.miragesql</groupId>
+            <artifactId>miragesql-parent-legacy</artifactId>
+            <version>4.0.1</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+    <dependency>
+        <groupId>vn.com.unit.miragesql</groupId>
+        <artifactId>miragesql-legacy</artifactId>
+    </dependency>
+</dependencies>
+```
+> **Note:** the parent POM also imports the Spring Boot 4 dependency management, so this import manages Spring, SLF4J and other library versions in your project too (for example Spring Framework 7.0.x). If your application is on another Spring generation, declare the versions explicitly as shown above instead.
+
+or in a Gradle based project add to your `build.gradle`:
+```groovy
+implementation 'vn.com.unit.miragesql:miragesql-legacy:4.0.1'
+implementation 'vn.com.unit.miragesql:miragesql-integration-legacy:4.0.1'
+testImplementation 'vn.com.unit.miragesql:miragesql-test-legacy:4.0.1'
+```
+
+### Building from source
+Requires JDK 17+ and Maven 3.9.x. Run Maven from the repository root:
 
 ```
-cd existing_repo
-git remote add origin https://glc.unit.vn/open-source/miragesql-customize.git
-git branch -M main
-git push -uf origin main
+mvn clean install
+mvn -pl mirage -am test
+```
+The first command builds and tests all modules; the second builds and tests only the core module and what it depends on. Publishing to Maven Central uses the `central-publishing` profile (it needs the GPG key and the Central credentials configured on the machine).
+
+### Migration
+
+Artifact mapping. The **Current** column is the line UNIT keeps developing new features on, and is the recommended target for your applications:
+
+Module|Original (upstream)|Legacy (maintenance only)|Current (UNIT, active development)
+---   |---                |---                      |---
+Group|`com.miragesql`|`vn.com.unit.miragesql`|`vn.com.unit.miragesql`
+Java package|`com.miragesql`|unchanged|renamed to the new package `vn.com.unit.miragesql`
+Parent|-|`miragesql-parent-legacy`|`miragesql-parent`
+Core|`miragesql`|`miragesql-legacy`|`miragesql`
+Test|`miragesql-test`|`miragesql-test-legacy`|`miragesql-test`
+Integration|`miragesql-integration`|`miragesql-integration-legacy`|`miragesql-integration`
+
+**From the original Mirage-SQL (`com.miragesql`, up to 2.1.2) to this legacy line**: no code change. Change the dependency groupId to `vn.com.unit.miragesql`, add the `-legacy` suffix to the artifactId, and keep your imports and configuration (the package stays `com.miragesql`). Check that your runtime is Java 17+ and compatible with Spring Boot 4.
+
+**Recommended: to the current line (UNIT active development)**: replace the `com.miragesql` package with `vn.com.unit.miragesql` in your imports and configuration, and use the artifactIds without the `-legacy` suffix.
+
+#### From legacy `4.0.1` to the current line `4.1+`
+
+The two lines have the same behavior and the same Java and Spring Boot baseline (Java 17+, Spring Boot 4). The differences are the coordinates and the Java package, so the migration is a rename:
+
+1. **Dependencies.** Remove the `-legacy` suffix from every artifactId and move to a `4.1+` version. The groupId (`vn.com.unit.miragesql`) is unchanged. Use the same version for all modules.
+
+   | From (`4.0.1`) | To (`4.1+`) |
+   |---|---|
+   | `miragesql-parent-legacy` | `miragesql-parent` |
+   | `miragesql-legacy` | `miragesql` |
+   | `miragesql-test-legacy` | `miragesql-test` |
+   | `miragesql-integration-legacy` | `miragesql-integration` |
+
+2. **Java package.** Replace `com.miragesql` with `vn.com.unit.miragesql` in every `import`, fully qualified class name and `package` reference in your code. A project-wide find and replace of `com.miragesql.` with `vn.com.unit.miragesql.` is enough. Do this only for Mirage-SQL classes, not for your own packages that happen to start with the same text.
+3. **Configuration.** Apply the same replacement outside Java code: Spring XML bean definitions (`class="com.miragesql...."`), Guice or Seasar2 configuration, and any property or annotation that holds a Mirage-SQL class name as a string.
+4. **Both lines on one classpath.** Do not keep `miragesql-legacy` and `miragesql` in the same application. Remove the legacy artifacts completely, including transitive references from your own shared libraries, before you build.
+5. **Verify.** Build with `mvn clean install` and run your tests. A leftover `com.miragesql` reference shows up as a compile error (`package com.miragesql... does not exist`) in Java code, and as a `ClassNotFoundException` at startup for string references in configuration, so check your configuration files and run the application once.
+
+Your SQL template files do not need to change. They are plain SQL files and do not contain the Java package name.
+
+If you are updating your application from a previous **`Mirage-SQL`** version, see the [Migration Guide](https://github.com/unit-corp/mirage/wiki/Migration-Guide).
+
+### Example
+
+This is a simple example of a SQL template:
+
+```sql
+SELECT * FROM BOOK
+/*BEGIN*/
+  WHERE
+  /*IF author != null */
+        AUTHOR = /*author*/'Naoki Takezoe'
+  /*END*/
+  /*IF minPrice != null */
+    AND PRICE >= /*minPrice*/20
+  /*END*/
+  /*IF maxPrice != null */
+    AND PRICE <= /*maxPrice*/100
+  /*END*/
+/*END*/
+ORDER BY BOOK_ID ASC
 ```
 
-## Integrate with your tools
+With **`Mirage-SQL`** you can embed variables or conditions using `special` SQL comments, so it's a plain SQL that can be run with any SQL client tool directly.
+This feature used in the Mirage's SQL template it's called [2Way SQL](https://github.com/unit-corp/mirage/wiki/2WaySQL).
 
-- [ ] [Set up project integrations](https://glc.unit.vn/open-source/miragesql-customize/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Dependency updates
+### Dependency updates
 - **OGNL 3.2.4 -> 3.4.17** (`mirage` module). No behavior differences were found in the test suite (SQL generation, bind variables, `has_` arguments, error reporting, non-public member access). OGNL 3.4 changed the `MemberAccess` and `PropertyAccessor` method signatures from `Map` to `OgnlContext`; `OgnlUtil.DefaultMemberAccess` and `SqlContextPropertyAccessor` were adapted. Code outside this project that extends or calls these classes with a `Map` must switch to `OgnlContext`.
-- The root `pom.xml` now has `junit-vintage-engine` (test scope), because surefire runs on the JUnit Platform and previously skipped all JUnit 4 tests.
+- The root `pom.xml` has `junit-vintage-engine` (test scope), because surefire runs on the JUnit Platform and previously skipped all JUnit 4 tests.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Links
+ - **Source code and issues** of this fork: [github.com/unit-corp/mirage](https://github.com/unit-corp/mirage).
+ - A **detailed documentation** is provided in the [Wiki](https://github.com/unit-corp/mirage/wiki).
+ - **Release notes** of this fork: [CHANGELOG.md](CHANGELOG.md) and the [Wiki Releases page](https://github.com/unit-corp/mirage/wiki/Releases).
+ - Mirage-SQL also has support for other **JVM based languages**:
+   - [Scala language](http://www.scala-lang.org/) support - [Mirage-SQL Scala](https://github.com/mirage-sql/mirage-scala)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### License
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This product is a fork of [Mirage-SQL](https://github.com/mirage-sql/mirage), originally developed by Naoki Takezoe and contributors, and is maintained by UNIT Technology Corporation. Copyright and attribution notices are in the [NOTICE](NOTICE) file; the original copyright notices in the source files are kept unchanged.
