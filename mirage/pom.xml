@@ -3,57 +3,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>vn.com.unit.miragesql</groupId>
 		<artifactId>miragesql-parent</artifactId>
-		<version>4.0.2</version>
+		<version>4.1.1</version>
 	</parent>
+	<modelVersion>4.0.0</modelVersion>
 	<artifactId>miragesql</artifactId>
 	<name>Mirage-SQL</name>
 	<description>Mirage-SQL is an easy and powerful SQL centric database access
 		library for Java (or JVM based languages) which provides dynamic SQL
-		templates in plain SQL files. This project is a fork of
-		[Mirage-SQL](https://github.com/mirage-sql/mirage) by UNIT Technology
-		Corporation since 2025.</description>
-	<url>https://github.com/unit-corp/mirage</url>
-	<organization>
-		<name>UNIT Technology Corporation</name>
-		<url>https://github.com/unit-corp</url>
-	</organization>
-	<scm>
-		<url>https://github.com/unit-corp/mirage</url>
-		<connection>scm:git:https://github.com/unit-corp/mirage.git</connection>
-		<developerConnection>scm:git:git@https://github.com/unit-corp/mirage.git</developerConnection>
-	</scm>
-	<inceptionYear>2025</inceptionYear>
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/license/LICENSE-2.0.txt</url>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>unit-hunght</id>
-			<name>Hua Thanh Hung</name>
-			<email>hunght@unit.com.vn</email>
-		</developer>
-		<developer>
-			<id>unit-vinhlt</id>
-			<name>Luong The Vinh</name>
-			<email>vinhlt@unit.com.vn</email>
-		</developer>
-		<developer>
-			<id>unit-corp-devops</id>
-			<name>UNIT Technology Corporation</name>
-			<email>devops@unit.com.vn</email>
-		</developer>
-	</developers>
+		templates in plain SQL files. This project is a fork of Mirage-SQL maintained by UNIT Technology Corporation.</description>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -61,6 +25,7 @@
 			<artifactId>ognl</artifactId>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
@@ -70,8 +35,13 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -93,42 +63,50 @@
 			<artifactId>hsqldb</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Groovy version is managed by the Spring Boot BOM; the Spock variant below must match its major version -->
+		<dependency>
+			<groupId>org.apache.groovy</groupId>
+			<artifactId>groovy</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.spockframework/spock-core -->
+		<!-- surefire runs on the JUnit Platform (Spock); the vintage engine runs the JUnit 4 tests -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
-	<profiles>
-		<!-- Spock specs (src/test/groovy). Spock brings the JUnit Platform, which hides JUnit 4 tests from the Eclipse runner, so it is opt-in: mvn -Pspock test -->
-		<profile>
-			<id>spock</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.apache.groovy</groupId>
-					<artifactId>groovy</artifactId>
-					<version>4.0.17</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.spockframework</groupId>
-					<artifactId>spock-core</artifactId>
-					<version>2.4-M1-groovy-4.0</version>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.gmavenplus</groupId>
-						<artifactId>gmavenplus-plugin</artifactId>
-						<version>3.0.2</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>addTestSources</goal>
-									<goal>compileTests</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+						<include>**/*Spec.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compileTests</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
