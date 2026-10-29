@@ -92,7 +92,7 @@ Artifact mapping. The **Current** column is the line UNIT keeps developing new f
 Module|Original (upstream)|Legacy (maintenance only)|Current (UNIT, active development)
 ---   |---                |---                      |---
 Group|`com.miragesql`|`vn.com.unit.miragesql`|`vn.com.unit.miragesql`
-Java package|`com.miragesql`|`com.miragesql`|`vn.com.unit.miragesql`
+Java package|`com.miragesql`|unchanged|renamed to the new package `vn.com.unit.miragesql`
 Parent|-|`miragesql-parent-legacy`|`miragesql-parent`
 Core|`miragesql`|`miragesql-legacy`|`miragesql`
 Test|`miragesql-test`|`miragesql-test-legacy`|`miragesql-test`
@@ -101,6 +101,26 @@ Integration|`miragesql-integration`|`miragesql-integration-legacy`|`miragesql-in
 **From the original Mirage-SQL (`com.miragesql`, up to 2.1.2) to this legacy line**: no code change. Change the dependency groupId to `vn.com.unit.miragesql`, add the `-legacy` suffix to the artifactId, and keep your imports and configuration (the package stays `com.miragesql`). Check that your runtime is Java 17+ and compatible with Spring Boot 4.
 
 **Recommended: to the current line (UNIT active development)**: replace the `com.miragesql` package with `vn.com.unit.miragesql` in your imports and configuration, and use the artifactIds without the `-legacy` suffix.
+
+#### From legacy `4.0.1` to the current line `4.1+`
+
+The two lines have the same behavior and the same Java and Spring Boot baseline (Java 17+, Spring Boot 4). The differences are the coordinates and the Java package, so the migration is a rename:
+
+1. **Dependencies.** Remove the `-legacy` suffix from every artifactId and move to a `4.1+` version. The groupId (`vn.com.unit.miragesql`) is unchanged. Use the same version for all modules.
+
+   | From (`4.0.1`) | To (`4.1+`) |
+   |---|---|
+   | `miragesql-parent-legacy` | `miragesql-parent` |
+   | `miragesql-legacy` | `miragesql` |
+   | `miragesql-test-legacy` | `miragesql-test` |
+   | `miragesql-integration-legacy` | `miragesql-integration` |
+
+2. **Java package.** Replace `com.miragesql` with `vn.com.unit.miragesql` in every `import`, fully qualified class name and `package` reference in your code. A project-wide find and replace of `com.miragesql.` with `vn.com.unit.miragesql.` is enough. Do this only for Mirage-SQL classes, not for your own packages that happen to start with the same text.
+3. **Configuration.** Apply the same replacement outside Java code: Spring XML bean definitions (`class="com.miragesql...."`), Guice or Seasar2 configuration, and any property or annotation that holds a Mirage-SQL class name as a string.
+4. **Both lines on one classpath.** Do not keep `miragesql-legacy` and `miragesql` in the same application. Remove the legacy artifacts completely, including transitive references from your own shared libraries, before you build.
+5. **Verify.** Build with `mvn clean install` and run your tests. A leftover `com.miragesql` reference shows up as a compile error (`package com.miragesql... does not exist`) in Java code, and as a `ClassNotFoundException` at startup for string references in configuration, so check your configuration files and run the application once.
+
+Your SQL template files do not need to change. They are plain SQL files and do not contain the Java package name.
 
 If you are updating your application from a previous **`Mirage-SQL`** version, see the [Migration Guide](https://github.com/unit-corp/mirage/wiki/Migration-Guide).
 

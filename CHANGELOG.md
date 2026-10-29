@@ -9,6 +9,7 @@ The version number selects the line, and the major number matches the Spring Boo
 | `2.1.2` (original, last upstream release) | `com.miragesql` | `miragesql`, `miragesql-integration`, `miragesql-test` | `com.miragesql` | n/a (plain Spring Framework) | 5.x | 8 | Maven Central |
 | `3.0.x` (UNIT internal fork) | `com.miragesql` | `miragesql`, `miragesql-integration`, `miragesql-test` | `com.miragesql` | 3.x | 6.x | 17 | Internal (UNIT private repository) |
 | `4.0.x` (legacy, UNIT-maintained) | `vn.com.unit.miragesql` | `miragesql-legacy`, `miragesql-integration-legacy`, `miragesql-test-legacy` | `com.miragesql` | 4.x | 7.x | 17 | Maven Central |
+| `4.1+` (current, UNIT active development) | `vn.com.unit.miragesql` | `miragesql`, `miragesql-integration`, `miragesql-test` | `vn.com.unit.miragesql` | 4.x | 7.x | 17 | Maven Central |
 
 `2.1.2` is the last upstream release published on Maven Central before UNIT forked the project; later versions are UNIT forks. Applications that still use the `com.miragesql` package and want UNIT maintenance should use the legacy artifacts (see the maintenance/legacy section below).
 
@@ -27,6 +28,7 @@ This branch is the UNIT-maintained **legacy** line for applications that still r
 ### Migration
 
 - From the original Mirage-SQL: change the dependency groupId to `vn.com.unit.miragesql` and add `-legacy` to the artifactId. Keep imports and configuration as they are.
+- From legacy `4.0.1` to `4.1+`: remove the `-legacy` suffix from the artifactIds and replace the `com.miragesql` package with `vn.com.unit.miragesql` in code and configuration. See the README, section "From legacy `4.0.1` to the current line `4.1+`", for the steps.
 - Recommended: move to the actively developed line. Replace the `com.miragesql` package with `vn.com.unit.miragesql` in imports and configuration, and use the artifactIds without the `-legacy` suffix (`miragesql`, `miragesql-integration`, `miragesql-test`).
 
 ## 4.0.1

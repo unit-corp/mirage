@@ -16,20 +16,13 @@
 		templates in plain SQL files. Maintenance-only legacy line by UNIT Technology Corporation for applications that still use the com.miragesql package.</description>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.29.2-GA</version>
-			<scope>compile</scope>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>ognl</groupId>
 			<artifactId>ognl</artifactId>
-			<version>3.4.17</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -44,6 +37,11 @@
 			<artifactId>HikariCP</artifactId>
 			<scope>compile</scope>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -61,32 +59,54 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.groovy/groovy-all -->
+		<!-- Groovy version is managed by the Spring Boot BOM; the Spock variant below must match its major version -->
 		<dependency>
 			<groupId>org.apache.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>4.0.17</version>
-			<type>pom</type>
+			<artifactId>groovy</artifactId>
+			<scope>test</scope>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.spockframework/spock-core -->
+		<!-- surefire runs on the JUnit Platform (Spock); the vintage engine runs the JUnit 4 tests -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
-			<version>2.4-M1-groovy-4.0</version>
 			<scope>test</scope>
 		</dependency>
 
 
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+						<include>**/*Spec.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compileTests</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
