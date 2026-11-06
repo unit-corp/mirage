@@ -51,4 +51,13 @@ public interface Dialect {
      */
     ValueType<?> getValueType();
 
+    /**
+     * Returns how {@link java.util.UUID} values are stored by the database product.
+     *
+     * @return the UUID storage, {@link UuidStorage#STRING} by default
+     */
+    default UuidStorage getUuidStorage() {
+        return UuidStorage.STRING;
+    }
+
 }

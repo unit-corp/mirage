@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
@@ -43,6 +44,7 @@ import vn.com.unit.miragesql.miragesql.type.SqlDateValueType;
 import vn.com.unit.miragesql.miragesql.type.StringValueType;
 import vn.com.unit.miragesql.miragesql.type.TimeValueType;
 import vn.com.unit.miragesql.miragesql.type.TimestampValueType;
+import vn.com.unit.miragesql.miragesql.type.UUIDValueType;
 import vn.com.unit.miragesql.miragesql.type.UtilDateValueType;
 import vn.com.unit.miragesql.miragesql.type.ValueType;
 import vn.com.unit.miragesql.miragesql.type.enumerate.EnumOneBasedOrdinalValueType;
@@ -50,6 +52,8 @@ import vn.com.unit.miragesql.miragesql.type.enumerate.EnumOrdinalValueType;
 import vn.com.unit.miragesql.miragesql.type.enumerate.EnumStringValueType;
 import vn.com.unit.miragesql.miragesql.util.IOUtil;
 import vn.com.unit.miragesql.miragesql.util.MirageUtil;
+import vn.com.unit.miragesql.miragesql.util.MirageUuidUtil;
+import vn.com.unit.miragesql.miragesql.util.UuidGenerator;
 import vn.com.unit.miragesql.miragesql.util.Validate;
 
 public class SqlManagerImpl implements SqlManager {
@@ -69,6 +73,8 @@ public class SqlManagerImpl implements SqlManager {
     protected SqlExecutor sqlExecutor = new SqlExecutor();
 
     protected CallExecutor callExecutor = new CallExecutor();
+
+    protected UuidGenerator uuidGenerator = MirageUuidUtil::nextV7;
 
     protected Map<SqlResource, Node> nodeCache = new ConcurrentHashMap<>();
 
@@ -97,6 +103,7 @@ public class SqlManagerImpl implements SqlManager {
         addValueType(new EnumStringValueType());
         addValueType(new EnumOrdinalValueType());
         addValueType(new EnumOneBasedOrdinalValueType());
+        addValueType(new UUIDValueType());
         addValueType(new ObjectValueType());
 //		addValueType(new vn.com.unit.miragesql.miragesql.type.DefaultValueType());
 
@@ -150,6 +157,16 @@ public class SqlManagerImpl implements SqlManager {
         this.dialect = dialect;
         this.sqlExecutor.setDialect(dialect);
         this.callExecutor.setDialect(dialect);
+    }
+
+    /**
+     * Sets the generator used for {@link GenerationType#UUID_V7} primary keys.
+     *
+     * @param uuidGenerator the generator, UUID v7 by default
+     */
+    public void setUuidGenerator(UuidGenerator uuidGenerator){
+        Validate.notNull(uuidGenerator);
+        this.uuidGenerator = uuidGenerator;
     }
 
     public Dialect getDialect(){
@@ -346,9 +363,33 @@ public class SqlManagerImpl implements SqlManager {
         }
     }
 
+    /**
+     * Sets GenerationType.UUID_V7 properties value, unless the property already has a value.
+     */
+    private void fillPrimaryKeysByUuid(Object entity){
+        BeanDesc beanDesc = beanDescFactory.getBeanDesc(entity.getClass());
+        int size = beanDesc.getPropertyDescSize();
+
+        for(int i=0; i < size; i++){
+            PropertyDesc propertyDesc = beanDesc.getPropertyDesc(i);
+            PrimaryKey primaryKey = propertyDesc.getAnnotation(PrimaryKey.class);
+
+            if(primaryKey != null && primaryKey.generationType() == GenerationType.UUID_V7){
+                if(!UUID.class.isAssignableFrom(propertyDesc.getPropertyType())){
+                    throw new IllegalArgumentException("GenerationType.UUID_V7 requires a java.util.UUID property: "
+                            + entity.getClass().getName() + "#" + propertyDesc.getPropertyName());
+                }
+                if(propertyDesc.getValue(entity) == null){
+                    propertyDesc.setValue(entity, uuidGenerator.generate());
+                }
+            }
+        }
+    }
+
     /**{@inheritDoc}*/
     public int insertEntity(Object entity) {
         fillPrimaryKeysBySequence(entity);
+        fillPrimaryKeysByUuid(entity);
 
         List<PropertyDesc> propDescs = new ArrayList<>();
         String sql = MirageUtil.buildInsertSql(null, beanDescFactory, entityOperator, entity, nameConverter, propDescs);
@@ -360,6 +401,7 @@ public class SqlManagerImpl implements SqlManager {
     @Override
     public int insertEntity(String entityName, Object entity) {
         fillPrimaryKeysBySequence(entity);
+        fillPrimaryKeysByUuid(entity);
 
         List<PropertyDesc> propDescs = new ArrayList<>();
         String sql = MirageUtil.buildInsertSql(entityName, beanDescFactory, entityOperator, entity, nameConverter, propDescs);
@@ -378,6 +420,7 @@ public class SqlManagerImpl implements SqlManager {
 
         for(Object entity: entities){
             fillPrimaryKeysBySequence(entity);
+            fillPrimaryKeysByUuid(entity);
 
             List<PropertyDesc> propDescs = new ArrayList<>();
             String sql = MirageUtil.buildInsertSql(null, beanDescFactory, entityOperator, entity, nameConverter, propDescs);
@@ -406,6 +449,7 @@ public class SqlManagerImpl implements SqlManager {
 
         for(Object entity: entities){
             fillPrimaryKeysBySequence(entity);
+            fillPrimaryKeysByUuid(entity);
 
             List<PropertyDesc> propDescs = new ArrayList<>();
             String sql = MirageUtil.buildInsertSql(entityName, beanDescFactory, entityOperator, entity, nameConverter, propDescs);

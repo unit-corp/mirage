@@ -8,4 +8,10 @@ public class SQLServerDialect extends StandardDialect {
         return "sqlserver";
     }
 
+    /**{@inheritDoc}*/
+    @Override
+    public UuidStorage getUuidStorage() {
+        return UuidStorage.BINARY;
+    }
+
 }

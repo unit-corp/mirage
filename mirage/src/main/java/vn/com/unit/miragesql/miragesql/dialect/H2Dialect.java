@@ -14,4 +14,10 @@ public class H2Dialect extends StandardDialect {
         return String.format("SELECT NEXTVAL('%s')", sequenceName);
     }
 
+    /**{@inheritDoc}*/
+    @Override
+    public UuidStorage getUuidStorage() {
+        return UuidStorage.NATIVE;
+    }
+
 }

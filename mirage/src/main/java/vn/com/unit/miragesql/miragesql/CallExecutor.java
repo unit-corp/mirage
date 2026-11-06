@@ -19,6 +19,7 @@ import vn.com.unit.miragesql.miragesql.dialect.Dialect;
 import vn.com.unit.miragesql.miragesql.exception.SQLRuntimeException;
 import vn.com.unit.miragesql.miragesql.naming.NameConverter;
 import vn.com.unit.miragesql.miragesql.provider.ConnectionProvider;
+import vn.com.unit.miragesql.miragesql.type.DialectAware;
 import vn.com.unit.miragesql.miragesql.type.ValueType;
 import vn.com.unit.miragesql.miragesql.util.JdbcUtil;
 import vn.com.unit.miragesql.miragesql.util.ModifierUtil;
@@ -51,6 +52,9 @@ public class CallExecutor {
 
     public void setDialect(Dialect dialect){
         this.dialect = dialect;
+        for(ValueType<?> valueType: valueTypes){
+            applyDialect(valueType);
+        }
     }
 
     /**
@@ -64,10 +68,20 @@ public class CallExecutor {
     public void setValueTypes(List<ValueType<?>> valueTypes) {
         Validate.notNull(valueTypes);
         this.valueTypes = valueTypes;
+        for(ValueType<?> valueType: valueTypes){
+            applyDialect(valueType);
+        }
     }
 
     public void addValueType(ValueType<?> valueType){
+        applyDialect(valueType);
         this.valueTypes.add(valueType);
+    }
+
+    private void applyDialect(ValueType<?> valueType){
+        if(valueType instanceof DialectAware){
+            ((DialectAware) valueType).setDialect(dialect);
+        }
     }
 
     public void setEntityOperator(EntityOperator entityOperator){

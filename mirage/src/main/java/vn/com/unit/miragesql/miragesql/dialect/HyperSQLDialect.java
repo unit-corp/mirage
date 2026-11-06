@@ -16,4 +16,10 @@ public class HyperSQLDialect extends StandardDialect {
                 "WHERE table_name = 'SYSTEM_TABLES'", sequenceName);
     }
 
+    /**{@inheritDoc}*/
+    @Override
+    public UuidStorage getUuidStorage() {
+        return UuidStorage.NATIVE;
+    }
+
 }

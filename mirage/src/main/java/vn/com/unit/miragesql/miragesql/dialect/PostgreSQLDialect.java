@@ -36,5 +36,10 @@ public class PostgreSQLDialect extends StandardDialect {
         return true;
     }
 
+    /**{@inheritDoc}*/
+    @Override
+    public UuidStorage getUuidStorage() {
+        return UuidStorage.NATIVE;
+    }
 
 }

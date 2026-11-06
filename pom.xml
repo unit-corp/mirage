@@ -46,6 +46,7 @@
 		<ognl.version>3.3.5</ognl.version>
 		<guice.version>6.0.0</guice.version>
 		<guava.version>33.4.0-jre</guava.version>
+		<java-uuid-generator.version>5.2.0</java-uuid-generator.version>
 	</properties>
 
 	<modules>
@@ -67,6 +68,11 @@
 				<groupId>ognl</groupId>
 				<artifactId>ognl</artifactId>
 				<version>${ognl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.uuid</groupId>
+				<artifactId>java-uuid-generator</artifactId>
+				<version>${java-uuid-generator.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.guava</groupId>
