@@ -1,15 +1,14 @@
 package vn.com.unit.miragesql.miragesql;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.dialect.HyperSQLDialect;
 import vn.com.unit.miragesql.miragesql.provider.ConnectionProvider;
 import vn.com.unit.miragesql.miragesql.util.IOUtil;
+import junit.framework.TestCase;
 
 public abstract class AbstractDatabaseTest extends TestCase {
 

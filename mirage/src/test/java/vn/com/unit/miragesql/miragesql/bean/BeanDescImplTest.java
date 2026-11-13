@@ -1,9 +1,9 @@
 package vn.com.unit.miragesql.miragesql.bean;
 
-import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.annotation.Enumerated;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
 import vn.com.unit.miragesql.miragesql.annotation.Transient;
+import junit.framework.TestCase;
 
 public class BeanDescImplTest extends TestCase {
 

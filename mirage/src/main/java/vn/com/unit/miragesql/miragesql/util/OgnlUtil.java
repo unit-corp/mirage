@@ -20,8 +20,8 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 
-import ognl.*;
 import vn.com.unit.miragesql.miragesql.exception.OgnlRuntimeException;
+import ognl.*;
 
 /**
  * Utility class for OGNL.

@@ -1,10 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project child.project.url.inherit.append.path="false" xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>vn.com.unit.miragesql</groupId>
 	<artifactId>miragesql-parent</artifactId>
-	<version>4.1.1</version>
+	<version>5.0.0</version>
 	<packaging>pom</packaging>
 	<name>Mirage-SQL Parent</name>
 	<description>Mirage-SQL is an easy and powerful SQL centric database access

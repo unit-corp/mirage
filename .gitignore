@@ -40,6 +40,7 @@ local.properties
 
 # Java annotation processor (APT)
 .factorypath
+
 # PDT-specific (PHP Development Tools)
 .buildpath
 
@@ -206,3 +207,6 @@ nbdist/
 *@tmp/
 *.bat
 docker-compose.yaml
+
+# Claude Code
+.claude/

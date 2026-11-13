@@ -1,8 +1,8 @@
 package vn.com.unit.miragesql.miragesql.dialect;
 
-import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey.GenerationType;
 import vn.com.unit.miragesql.miragesql.type.PostgreResultSetValueType;
+import junit.framework.TestCase;
 
 public class PostgreSQLDialectTest extends TestCase {
 
