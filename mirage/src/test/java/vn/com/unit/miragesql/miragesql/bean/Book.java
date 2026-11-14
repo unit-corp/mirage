@@ -1,9 +1,9 @@
 package vn.com.unit.miragesql.miragesql.bean;
 
 import vn.com.unit.miragesql.miragesql.annotation.Enumerated;
+import vn.com.unit.miragesql.miragesql.annotation.Enumerated.EnumType;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
 import vn.com.unit.miragesql.miragesql.annotation.Transient;
-import vn.com.unit.miragesql.miragesql.annotation.Enumerated.EnumType;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey.GenerationType;
 
 public class Book {

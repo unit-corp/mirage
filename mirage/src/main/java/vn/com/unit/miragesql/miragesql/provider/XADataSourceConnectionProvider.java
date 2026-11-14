@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sql.XADataSource;
+
 import vn.com.unit.miragesql.miragesql.exception.SQLRuntimeException;
 import vn.com.unit.miragesql.miragesql.util.JdbcUtil;
-
-import javax.sql.XADataSource;
 
 /**
  * {@link ConnectionProvider} implementation which gets a connection from <code>javax.sql.XADataSource</code>.

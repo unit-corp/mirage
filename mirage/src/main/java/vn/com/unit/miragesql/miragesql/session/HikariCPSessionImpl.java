@@ -7,6 +7,10 @@ import java.util.Properties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.util.PropertyElf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.sql.DataSource;
 
 import vn.com.unit.miragesql.miragesql.SqlManager;
 import vn.com.unit.miragesql.miragesql.SqlManagerImpl;
@@ -14,11 +18,6 @@ import vn.com.unit.miragesql.miragesql.exception.ConfigurationException;
 import vn.com.unit.miragesql.miragesql.exception.SessionException;
 import vn.com.unit.miragesql.miragesql.provider.DefaultConnectionProvider;
 import vn.com.unit.miragesql.miragesql.util.StringUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
 
 
 /**

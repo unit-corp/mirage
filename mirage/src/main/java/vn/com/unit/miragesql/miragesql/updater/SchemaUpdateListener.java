@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
 import vn.com.unit.miragesql.miragesql.SqlManagerImpl;
 import vn.com.unit.miragesql.miragesql.session.Session;
 import vn.com.unit.miragesql.miragesql.session.SessionFactory;
 import vn.com.unit.miragesql.miragesql.util.ExceptionUtil;
 import vn.com.unit.miragesql.miragesql.util.StringUtil;
+
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 /**
  * This is a ServletContextListener to execute {@link SchemaUpdater} when the servlet context is initialized.

@@ -1,9 +1,9 @@
 Mirage-SQL
-Copyright 2017-2021 Mirage-SQL (original mirage project)
-Copyright 2025 UNIT Technology Corporation
+Copyright (c) 2025 UNIT Technology Corporation.
 
-This project is a fork of mirage (https://github.com/mirage-sql/mirage).
-Modifications have been made by UNIT Technology Corporation in 2025.
+This product is a fork of Mirage-SQL (https://github.com/mirage-sql/mirage),
+originally developed by Naoki Takezoe and contributors, and is maintained by
+UNIT Technology Corporation.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

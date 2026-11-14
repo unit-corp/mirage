@@ -1,14 +1,13 @@
 package vn.com.unit.miragesql.miragesql;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import vn.com.unit.miragesql.miragesql.annotation.Column;
 import vn.com.unit.miragesql.miragesql.annotation.Enumerated;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
 import vn.com.unit.miragesql.miragesql.exception.BreakIterationException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SqlManagerImplTest extends AbstractDatabaseTest {
 

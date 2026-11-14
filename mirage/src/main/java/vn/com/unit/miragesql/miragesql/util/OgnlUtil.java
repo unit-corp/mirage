@@ -20,8 +20,8 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 
-import ognl.*;
 import vn.com.unit.miragesql.miragesql.exception.OgnlRuntimeException;
+import ognl.*;
 
 /**
  * Utility class for OGNL.
@@ -188,7 +188,7 @@ public class OgnlUtil {
         }
 
         @Override
-        public Object setup(Map context, Object target, Member member, String propertyName) {
+        public Object setup(OgnlContext context, Object target, Member member, String propertyName) {
             Object result = null;
 
             if ( isAccessible( context, target, member, propertyName ) ) {
@@ -203,14 +203,14 @@ public class OgnlUtil {
         }
 
         @Override
-        public void restore(Map context, Object target, Member member, String propertyName, Object state) {
+        public void restore(OgnlContext context, Object target, Member member, String propertyName, Object state) {
             if ( state != null ) {
                 ( (AccessibleObject) member ).setAccessible( (Boolean) state );
             }
         }
 
         @Override
-        public boolean isAccessible(Map context, Object target, Member member, String propertyName) {
+        public boolean isAccessible(OgnlContext context, Object target, Member member, String propertyName) {
             int modifiers = member.getModifiers();
             boolean result = Modifier.isPublic( modifiers );
 

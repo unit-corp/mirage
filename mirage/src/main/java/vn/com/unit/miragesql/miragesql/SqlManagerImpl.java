@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
-import vn.com.unit.miragesql.miragesql.annotation.ResultSet;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey.GenerationType;
+import vn.com.unit.miragesql.miragesql.annotation.ResultSet;
 import vn.com.unit.miragesql.miragesql.bean.BeanDesc;
 import vn.com.unit.miragesql.miragesql.bean.BeanDescFactory;
 import vn.com.unit.miragesql.miragesql.bean.PropertyDesc;

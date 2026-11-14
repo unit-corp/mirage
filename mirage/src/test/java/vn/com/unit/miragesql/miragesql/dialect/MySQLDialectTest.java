@@ -1,7 +1,7 @@
 package vn.com.unit.miragesql.miragesql.dialect;
 
-import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey.GenerationType;
+import junit.framework.TestCase;
 
 public class MySQLDialectTest extends TestCase {
 

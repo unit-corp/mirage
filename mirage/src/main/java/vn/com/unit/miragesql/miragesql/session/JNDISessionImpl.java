@@ -1,18 +1,18 @@
 package vn.com.unit.miragesql.miragesql.session;
 
-import javax.naming.NamingException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Properties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import vn.com.unit.miragesql.miragesql.SqlManager;
 import vn.com.unit.miragesql.miragesql.SqlManagerImpl;
 import vn.com.unit.miragesql.miragesql.exception.ConfigurationException;
 import vn.com.unit.miragesql.miragesql.exception.SessionException;
 import vn.com.unit.miragesql.miragesql.provider.DataSourceConnectionProvider;
 import vn.com.unit.miragesql.miragesql.provider.JNDIDataSourceConnectionProvider;
+
+import javax.naming.NamingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JNDI based Mirage-SQL Session implementation.

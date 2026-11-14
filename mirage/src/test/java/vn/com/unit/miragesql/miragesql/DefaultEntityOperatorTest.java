@@ -1,6 +1,6 @@
 package vn.com.unit.miragesql.miragesql;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey;
 import vn.com.unit.miragesql.miragesql.annotation.PrimaryKey.GenerationType;
 import vn.com.unit.miragesql.miragesql.bean.BeanDesc;
@@ -37,6 +36,7 @@ import vn.com.unit.miragesql.miragesql.type.ValueType;
 import vn.com.unit.miragesql.miragesql.type.enumerate.EnumOneBasedOrdinalValueType;
 import vn.com.unit.miragesql.miragesql.type.enumerate.EnumOrdinalValueType;
 import vn.com.unit.miragesql.miragesql.type.enumerate.EnumStringValueType;
+import junit.framework.TestCase;
 
 
 public class DefaultEntityOperatorTest extends TestCase {
