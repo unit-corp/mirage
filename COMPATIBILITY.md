@@ -33,16 +33,16 @@ Supporting `maintenance/legacy/4.0.x` and `maintenance/5.0.x` at the same time m
 
 Patch releases are immutable tags on the corresponding maintenance branch. Individual fixes may use short-lived `fix/*` or `security/*` branches, which are deleted after merge. New features do not belong on a maintenance branch.
 
-The historical source references below describe the repository state inspected during this documentation update. They do not replace the canonical maintenance branch policy.
+The artifact-family mapping below describes stable coordinates and package layouts. Release-specific evidence remains in the release-line matrix above.
 
 ## Verified artifact families
 
 The repository contains two different coordinate and package layouts. Do not treat them as interchangeable.
 
-| Variant | Source reference | Parent | Core | Test | Integration | Java package |
-|---|---|---|---|---|---|---|
-| Legacy-package variant | tag `legacy-v4.0.1`, branch `maintenance/legacy` | `miragesql-parent-legacy` | `miragesql-legacy` | `miragesql-test-legacy` | `miragesql-integration-legacy` | `com.miragesql` |
-| Standard artifact variant | release `5.0.0` | `miragesql-parent` | `miragesql` | `miragesql-test` | `miragesql-integration` | `vn.com.unit.miragesql` |
+| Variant | Parent | Core | Test | Integration | Java package |
+|---|---|---|---|---|---|
+| Legacy-package variant | `miragesql-parent-legacy` | `miragesql-legacy` | `miragesql-test-legacy` | `miragesql-integration-legacy` | `com.miragesql` |
+| Standard artifact variant | `miragesql-parent` | `miragesql` | `miragesql-test` | `miragesql-integration` | `vn.com.unit.miragesql` |
 
 Both variants use groupId `vn.com.unit.miragesql`. The standard reactor contains three modules: `mirage`, `miragesql-test`, and `miragesql-integration`. The `mirage` directory produces artifact `miragesql`.
 
