@@ -116,7 +116,13 @@ public class SqlParserImpl implements SqlParser {
                 parseIf();
             } else if (isBeginComment(comment)) {
                 parseBegin();
-            } else if (isEndComment(comment)) {
+            }
+            // Support generate sql from parameter
+            else if(isDynamic(comment)){
+                parseDynamic();
+            }
+
+            else if (isEndComment(comment)) {
                 return;
             } else {
                 parseCommentBindVariable();
@@ -124,6 +130,38 @@ public class SqlParserImpl implements SqlParser {
         } else if(isHintComment(comment)){
             peek().addChild(new SqlNode("/*" + comment + "*/"));
         }
+    }
+    
+    /**
+     * @author PhatLT
+     * My team need to support dynamic SQL generation
+     *              based on OGNL expressions. This method parses the dynamic comment
+     *              and creates a {@link DynamicMappingNode} that evaluates the expression
+     *              and processes the result, which can be a collection of items or a
+     *              single string. The results are then parsed into SQL nodes and added
+     *              to the SQL context. This allows for flexible SQL generation based on
+     *              dynamic conditions or data.
+     * @throws TwoWaySQLException if the dynamic content is not found or invalid.
+     */
+    protected void parseDynamic() {
+        String comment = tokenizer.getToken();
+        if (isDynamic(comment)) {
+            String content = comment.substring(8).trim();
+            if (StringUtil.isEmpty(content)) {
+                throw new TwoWaySQLException("Dynamic content not found.");
+            }
+            DynamicMappingNode dynamicNode = new DynamicMappingNode(content, beanDescFactory);
+            Node node = peek();
+            node.addChild(dynamicNode);
+            push(dynamicNode);
+            parseEnd();
+        } else {
+            throw new TwoWaySQLException("Invalid dynamic comment: " + comment);
+        }
+    }
+
+    protected boolean isDynamic(String comment) {
+        return comment != null && comment.startsWith("DYNAMIC:");
     }
 
     /**

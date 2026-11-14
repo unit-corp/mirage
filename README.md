@@ -128,14 +128,7 @@ This feature used in the Mirage's SQL template it's called [2Way SQL](https://gi
 ### Links
  - **Source code and issues** of this fork: [github.com/unit-corp/mirage](https://github.com/unit-corp/mirage).
  - A **detailed documentation** is provided in the [Wiki](https://github.com/unit-corp/mirage/wiki).
- - **Release notes** of this fork: [CHANGELOG.md](CHANGELOG.md) and the [Wiki Releases page](https://github.com/unit-corp/mirage/wiki/Releases).
- - **Compatibility and lifecycle:** [COMPATIBILITY.md](COMPATIBILITY.md).
- - **Security policy:** [SECURITY.md](SECURITY.md).
- - **Contributing and releasing:** [CONTRIBUTING.md](CONTRIBUTING.md) and [RELEASING.md](RELEASING.md).
- - Mirage-SQL also has support for other **JVM based languages**:
-   - [Scala language](http://www.scala-lang.org/) support - [Mirage-SQL Scala](https://github.com/mirage-sql/mirage-scala)
-
-### License
-This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file.
-
-This product is a fork of [Mirage-SQL](https://github.com/mirage-sql/mirage), originally developed by Naoki Takezoe and contributors, and is maintained by UNIT Technology Corporation. Copyright and attribution notices are in the [NOTICE](NOTICE) file. The original copyright notices in the source files are kept unchanged.
+ - If you find any **bugs or issues**, please report them in the [GitHub Issue Tracker](https://github.com/unit-corp/mirage/issues).
+ - **[Release Notes](https://github.com/unit-corp/mirage/wiki/Releases)** of all previous Mirage-SQL versions.
+ - Mirage-SQL also has support for other **JVM based languages**
+ - 
