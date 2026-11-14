@@ -26,4 +26,10 @@ public class MySQLDialect extends StandardDialect {
         return true;
     }
 
+    /**{@inheritDoc}*/
+    @Override
+    public UuidStorage getUuidStorage() {
+        return UuidStorage.BINARY;
+    }
+
 }

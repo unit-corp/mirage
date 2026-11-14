@@ -63,6 +63,7 @@
 		<hikaricp.version>7.1.0</hikaricp.version>
 		<spring-data-mirage.version>4.0.1</spring-data-mirage.version>
 		<mirage.version>${project.version}</mirage.version>
+		<java-uuid-generator.version>5.2.0</java-uuid-generator.version>
 	</properties>
 
 	<modules>
@@ -152,6 +153,12 @@
 				<artifactId>HikariCP</artifactId>
 				<version>${hikaricp.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.uuid</groupId>
+				<artifactId>java-uuid-generator</artifactId>
+				<version>${java-uuid-generator.version}</version>
+			</dependency>
+
 			<!-- modules of this project -->
 			<dependency>
 				<groupId>vn.com.unit.miragesql</groupId>
