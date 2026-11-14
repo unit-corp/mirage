@@ -9,7 +9,6 @@ package vn.com.unit.miragesql.miragesql.parser;
 
 import java.util.Collection;
 
-import lombok.Getter;
 import vn.com.unit.miragesql.miragesql.bean.BeanDescFactory;
 import vn.com.unit.miragesql.miragesql.util.OgnlUtil;
 
@@ -18,7 +17,6 @@ import vn.com.unit.miragesql.miragesql.util.OgnlUtil;
  * which can be a collection of items or a single string. The results are then parsed into SQL nodes and added to the SQL context. This
  * allows for flexible SQL generation based on dynamic conditions or data.
  */
-@Getter
 public class DynamicMappingNode extends AbstractNode {
 
     private final String expression;
@@ -29,6 +27,18 @@ public class DynamicMappingNode extends AbstractNode {
         this.expression = expression;
         this.parsedExpression = OgnlUtil.parseExpression(expression);
         this.beanDescFactory = beanDescFactory;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public Object getParsedExpression() {
+        return parsedExpression;
+    }
+
+    public BeanDescFactory getBeanDescFactory() {
+        return beanDescFactory;
     }
 
     @Override
